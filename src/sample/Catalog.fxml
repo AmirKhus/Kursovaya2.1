@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="453.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.CatalogController">
+   <children>
+      <BorderPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="443.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <MenuBar prefHeight="26.0" prefWidth="322.0" BorderPane.alignment="CENTER">
+               <menus>
+                  <Menu fx:id="Файл" mnemonicParsing="false" text="Файл">
+                     <items>
+                        <MenuItem fx:id="Закрыть" mnemonicParsing="false" text="Close" />
+                     </items>
+                  </Menu>
+                  <Menu fx:id="Заказы" mnemonicParsing="false" text="Заказы">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Посмотреть все заказы" />
+                        <MenuItem fx:id="Посмотреть" mnemonicParsing="false" text="Посмотреть статистику" />
+                     </items>
+                  </Menu>
+                  <Menu fx:id="Товары" mnemonicParsing="false" text="Товары">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Посмотреть каталог товаров" />
+                        <MenuItem mnemonicParsing="false" text="Открыть каталог в новом окне" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Помощь">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="О программе" />
+                     </items>
+                  </Menu>
+               </menus>
+            </MenuBar>
+         </top>
+         <center>
+            <TabPane prefHeight="320.0" prefWidth="482.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+               <tabs>
+                  <Tab fx:id="CatalogTab" text="Каталог товаров">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="219.0" prefWidth="600.0">
+                           <children>
+                              <SplitPane dividerPositions="0.9118541033434651, 0.9270516717325228" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <items>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="272.0" prefWidth="598.0">
+                                       <children>
+                                          <TableView layoutY="-3.0" prefHeight="351.0" prefWidth="370.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <columns>
+                                                <TableColumn prefWidth="140.7999206185341" text="Товар" />
+                                                <TableColumn prefWidth="127.20010375976562" text="Автор" />
+                                                <TableColumn prefWidth="96.0" text="Цена" />
+                                             </columns>
+                                          </TableView>
+                                       </children>
+                                    </AnchorPane>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="124.0" prefWidth="598.0" />
+                                    <HBox spacing="15.0">
+                                       <children>
+                                          <Button fx:id="BuyProduct" mnemonicParsing="false" prefHeight="26.0" prefWidth="362.0" text="Купить" />
+                                       </children>
+                                    </HBox>
+                                </items>
+                              </SplitPane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab fx:id="LKTab" text="Личный кабинет">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="435.0" prefWidth="500.0">
+                           <children>
+                              <Label fx:id="Name" layoutX="225.0" layoutY="42.0" text="Label">
+                                 <font>
+                                    <Font size="23.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="Surname" layoutX="225.0" layoutY="82.0" text="Label">
+                                 <font>
+                                    <Font size="23.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="47.0" layoutY="42.0" text="Имя">
+                                 <font>
+                                    <Font size="23.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="47.0" layoutY="82.0" text="Фамилия">
+                                 <font>
+                                    <Font size="23.0" />
+                                 </font>
+                              </Label>
+                              <Button fx:id="MyProduct" layoutX="50.0" layoutY="344.0" mnemonicParsing="false" onAction="#handleShowMyProduct" text="Мои товары" />
+                              <Button fx:id="MyOrders" layoutX="204.0" layoutY="344.0" mnemonicParsing="false" text="Мои заказы" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

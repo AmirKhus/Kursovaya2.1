@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="442.0" prefWidth="400.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="460.0" fitWidth="606.0" layoutX="-116.0" layoutY="-19.0" style="-fx-blend-mode: #FFFFFF;">
+         <image>
+            <Image url="@../../../../Desktop/Интерфес%20ч-м/Курсовая%20файлы/ruki.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="42.0" fitWidth="43.0" layoutX="272.0" layoutY="14.0">
+         <image>
+            <Image url="@../../../../Desktop/Интерфес%20ч-м/Курсовая%20файлы/Иконка%20верх%20ЛК.png" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="-3.0" layoutY="56.0" prefHeight="2.0" prefWidth="406.0" style="-fx-background-color: #000000;" />
+      <AnchorPane layoutX="198.0" layoutY="-23.0" prefHeight="80.0" prefWidth="2.0" style="-fx-background-color: #000000;" />
+      <ImageView layoutX="78.0" layoutY="19.0">
+         <image>
+            <Image url="@../../../../Desktop/Интерфес%20ч-м/Курсовая%20файлы/Иконка%20товар.png" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="24.0" layoutY="69.0" prefHeight="97.0" prefWidth="106.0" style="-fx-background-color: #FFFFFF;">
+         <children>
+            <ImageView fitHeight="98.0" fitWidth="106.0" layoutX="-1.0">
+               <image>
+                  <Image url="@../../../../Desktop/Интерфес%20ч-м/Курсовая%20файлы/Иконка%20в%20личном%20кабинете%20.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <TextField layoutX="145.0" layoutY="69.0" prefHeight="26.0" prefWidth="238.0" text="Name" />
+      <TextField layoutX="145.0" layoutY="106.0" prefHeight="26.0" prefWidth="238.0" text="Surname" />
+      <TextField layoutX="145.0" layoutY="140.0" prefHeight="26.0" prefWidth="238.0" text="nomer telefona" />
+      <Button layoutX="251.0" layoutY="377.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="127.0" style="-fx-background-color: #00FF2A;" text="Мои покупки" />
+      <Button layoutX="13.0" layoutY="377.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="208.0" style="-fx-background-color: #00FF2A;" text="Редактировать/добавить товар" />
+      <TextField layoutX="25.0" layoutY="198.0" prefHeight="26.0" prefWidth="162.0" text="Счет" />
+      <Button layoutX="210.0" layoutY="198.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="146.0" style="-fx-background-color: #FF0000;" text="вывести деньги" />
+   </children>
+</AnchorPane>
