@@ -51,6 +51,8 @@ public class EditSceneController implements Initializable {
             product.setProductPutImage(productPutField.getText());
 //            product.setProductImage(productPutField.getText());
 
+
+
             Product.addProduct(product);
             okKlicked = true;
             dialogStage.close();
@@ -59,7 +61,7 @@ public class EditSceneController implements Initializable {
     private boolean isInputValid(){
         String errorMessage = "";
         if  (productPutField.getText() == null || productPutField.getText().length() == 0) {
-            errorMessage += "Нет доступного артикула\n";
+            errorMessage += "Нет доступного пути\n";
         }
         if  (productNameField.getText() == null || productNameField.getText().length() == 0) {
             errorMessage += "Нет доступного наименования товара\n";
@@ -68,7 +70,7 @@ public class EditSceneController implements Initializable {
             errorMessage += "Нет доступной сувары\n";
         }
         if (productAftorField.getText() == null || productAftorField.getText().length() == 0) {
-            errorMessage += "Нет количества\n";
+            errorMessage += "Нет автора\n";
         }
 
         if (errorMessage.length() == 0) {
@@ -97,9 +99,6 @@ public class EditSceneController implements Initializable {
             productSumField.setText(product.productSumProperty() != null ? product.productSumProperty().getValue():"");
             productAftorField.setText(product.productAftorProperty() != null ?product.productAftorProperty().getValue():"");
         }
-
-
-
     }
 
 

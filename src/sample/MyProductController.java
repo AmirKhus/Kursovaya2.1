@@ -5,12 +5,12 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -19,7 +19,6 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -131,10 +130,20 @@ public class MyProductController implements Initializable {
 
     @FXML
     private void handleNewProduct(){
-        Product tempProduct = new Product();
-        boolean okClicked = this.showProdoctEditDialog(tempProduct);
-        if (okClicked) {
-            productData.add(tempProduct);
+        Stage stage = new Stage();
+        stage.setTitle("New product");
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/sample/EditSceneNewProduct.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (root != null) {
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }else {
+            System.out.println("jopa");
         }
     }
 
@@ -211,4 +220,31 @@ public class MyProductController implements Initializable {
             return false;
         }
     }
+//    public boolean showProdoctEditDialogNewProduct(Product product){
+//        try {
+////          Загружаем fxml-файл и создаем новую сцену для
+////          для всплывающего диалогового окна
+//            FXMLLoader loader = new FXMLLoader();
+//            loader.setLocation(EditSceneNewProductController.class.getResource("EditSceneNewProduct.fxml"));
+//            AnchorPane page = (AnchorPane) loader.load();
+//
+////    Создаем диалоговое окно Stage
+//            Stage dialogStage = new Stage();
+//            dialogStage.setTitle("New Product");
+//            dialogStage.initModality(Modality.WINDOW_MODAL);
+//            dialogStage.initOwner(null);
+//            Scene scene = new Scene(page);
+//            dialogStage.setScene(scene);
+////    Передаём адресата в контроллер.
+//            EditSceneNewProductController controller = loader.getController();
+//            controller.setDialogStage(dialogStage);
+//            controller.setProduct(product);
+//// диалоговое окно и ждет, пока пользователь его не закроет
+//            dialogStage.showAndWait();
+//            return controller.isOkKlicked();
+//        }catch (IOException e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+//    }
 }
