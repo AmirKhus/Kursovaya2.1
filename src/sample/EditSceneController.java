@@ -45,7 +45,6 @@ public class EditSceneController implements Initializable {
     @FXML
     void handleOk() {
         if (isInputValid()) {
-            product.setProductId(productPutField.getText());
             product.setProductName(productNameField.getText());
             product.setProductSum(productSumField.getText());
             product.setProductAftor(productAftorField.getText());
@@ -92,11 +91,14 @@ public class EditSceneController implements Initializable {
 
     public void setProduct(Product product) {
         this.product = product;
+        if (product != null) {
+            productPutField.setText(product.productPutImage() != null ? product.productPutImage().getValue():"");
+            productNameField.setText(product.productNameProperty() !=null ? product.productNameProperty().getValue():"");
+            productSumField.setText(product.productSumProperty() != null ? product.productSumProperty().getValue():"");
+            productAftorField.setText(product.productAftorProperty() != null ?product.productAftorProperty().getValue():"");
+        }
 
-        productPutField.setText(product.productPutImage().getValue() != null ? product.productPutImage().getValue():"");
-        productNameField.setText(product.productNameProperty().getValue()!=null ? product.productNameProperty().getValue().toString():"");
-        productSumField.setText(product.productSumProperty().getValue()!= null ? product.productSumProperty().getValue().toString():"");
-        productAftorField.setText(product.productAftorProperty().getValue()!= null ?product.productAftorProperty().getValue().toString():"");
+
 
     }
 

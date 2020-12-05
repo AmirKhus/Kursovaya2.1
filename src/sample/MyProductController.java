@@ -157,24 +157,23 @@ public class MyProductController implements Initializable {
 
     @FXML
     private void handleEditProduct() {
-//        Product selectedProduct = catalogTabel.getSelectionModel().getSelectedItem();
-//        if (selectedProduct != null) {
-//            boolean okClicked = showProdoctEditDialog(selectedProduct);
-//            if (okClicked) {
-//                showProductDetails(selectedProduct);
-//                int selectedIndex = catalogTabel.getSelectionModel().getSelectedIndex();
-//                productData.set(selectedIndex, selectedProduct);
-//            }
-//
-//        }else{
-////        Ничего не выбрано.
-//            Alert alert = new Alert(Alert.AlertType.WARNING);
-//            alert.initOwner(null);
-//            alert.setTitle("Ничего не набрано");
-//            alert.setHeaderText("Нет продукта");
-//            alert.setContentText("Выберите продукт в таблице");
-//            alert.showAndWait();
-//        }
+        Product selectedProduct = catalogTabel.getSelectionModel().getSelectedItem();
+        if (selectedProduct != null) {
+            boolean okClicked = showProdoctEditDialog(selectedProduct);
+            if (okClicked) {
+                int selectedIndex = catalogTabel.getSelectionModel().getSelectedIndex();
+                productData.set(selectedIndex, selectedProduct);
+            }
+
+        }else{
+//        Ничего не выбрано.
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.initOwner(null);
+            alert.setTitle("Ничего не набрано");
+            alert.setHeaderText("Нет продукта");
+            alert.setContentText("Выберите продукт в таблице");
+            alert.showAndWait();
+        }
     }
 
     @FXML
