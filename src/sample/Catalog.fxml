@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="453.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.CatalogController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="453.0" prefWidth="517.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.CatalogController">
    <children>
       <BorderPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="443.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -57,11 +57,13 @@
                                 <items>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="272.0" prefWidth="598.0">
                                        <children>
-                                          <TableView layoutY="-3.0" prefHeight="351.0" prefWidth="370.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <TableView fx:id="catalogTabel" prefHeight="367.0" prefWidth="519.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <columns>
-                                                <TableColumn prefWidth="140.7999206185341" text="Товар" />
-                                                <TableColumn prefWidth="127.20010375976562" text="Автор" />
-                                                <TableColumn prefWidth="96.0" text="Цена" />
+                                                <TableColumn fx:id="ImageProduct" prefWidth="140.7999206185341" text="Товар" />
+                                                <TableColumn fx:id="AftorProduct" prefWidth="127.20010375976562" text="Автор" />
+                                                <TableColumn fx:id="SumProduct" prefWidth="96.0" text="Цена" />
+                                                <TableColumn fx:id="idProduct" prefWidth="75.0" text="Артикуль" />
+                                                <TableColumn fx:id="NameProduct" prefWidth="75.0" text="Название" />
                                              </columns>
                                           </TableView>
                                        </children>
@@ -69,7 +71,7 @@
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="124.0" prefWidth="598.0" />
                                     <HBox spacing="15.0">
                                        <children>
-                                          <Button fx:id="BuyProduct" mnemonicParsing="false" prefHeight="26.0" prefWidth="362.0" text="Купить" />
+                                          <Button fx:id="BuyProduct" mnemonicParsing="false" onAction="#BuyProduct" prefHeight="26.0" prefWidth="516.0" text="Купить" />
                                        </children>
                                     </HBox>
                                 </items>
@@ -102,8 +104,8 @@
                                     <Font size="23.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="MyProduct" layoutX="50.0" layoutY="344.0" mnemonicParsing="false" onAction="#handleShowMyProduct" text="Мои товары" />
-                              <Button fx:id="MyOrders" layoutX="204.0" layoutY="344.0" mnemonicParsing="false" text="Мои заказы" />
+                              <Button fx:id="MyProduct" layoutX="50.0" layoutY="344.0" mnemonicParsing="false" text="Мои товары" />
+                              <Button fx:id="MyOrders" layoutX="204.0" layoutY="344.0" mnemonicParsing="false" onAction="#handleShowMyProductFavorites" text="Мои заказы" />
                            </children>
                         </AnchorPane>
                      </content>
