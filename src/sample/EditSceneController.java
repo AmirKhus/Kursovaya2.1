@@ -8,8 +8,17 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 public class EditSceneController implements Initializable {
 
@@ -28,6 +37,13 @@ public class EditSceneController implements Initializable {
     @FXML
     private TextField productNameField;
 
+    @FXML
+    private TextField productLengthField;
+
+    @FXML
+    private TextField productWidthField;
+
+
     private Stage dialogStage;
     private Product product;
     private boolean okKlicked = false;
@@ -41,18 +57,63 @@ public class EditSceneController implements Initializable {
 //        dialogStage.close();
     }
 
-
     @FXML
-    void handleOk() {
+    void handleOk() throws IOException {
         if (isInputValid()) {
             product.setProductName(productNameField.getText());
             product.setProductSum(productSumField.getText());
             product.setProductAftor(productAftorField.getText());
             product.setProductPutImage(productPutField.getText());
-//            product.setProductImage(productPutField.getText());
+            product.setProductLength(productLengthField.getText());
+            product.setProductWidth(productWidthField.getText());
 
+//       String productId= "426";
+//        String fileName = "fail.txt";
+//            Scanner scan = new Scanner(new File(fileName));
+//            while(scan.hasNextLine()) {
+//                String[] logon = scan.nextLine().split(",");
+//                if (logon[3].equals(productId) ) {
+//                    Charset charset = StandardCharsets.UTF_8;
+//                    Path path = Paths.get(fileName);
+//                    Files.write(path,
+//                            new String(Files.readAllBytes(path), charset).replace(logon[0], newProductAftorField)
+//                                    .getBytes(charset));
+//                    Files.write(path,
+//                            new String(Files.readAllBytes(path), charset).replace(logon[1], newProductSum)
+//                                    .getBytes(charset));
+//                    Files.write(path,
+//                            new String(Files.readAllBytes(path), charset).replace(logon[2], newproductName)
+//                                    .getBytes(charset));
+//                }
 
-
+//            if (logon[3].equals(product.productIdProperty().getValue()) ) {
+            String fileName = "C:\\Users\\KP\\IdeaProjects\\Kursovaya2\\src\\sample\\ProductDataBase.txt";
+            Scanner scan = new Scanner(new File(fileName));
+            while(scan.hasNextLine()) {
+                String[] logon = scan.nextLine().split(",");
+                if (logon[3].equals(product.productIdProperty().getValue()) ) {
+                    Charset charset = StandardCharsets.UTF_8;
+                    Path path = Paths.get(fileName);
+                    Files.write(path,
+                            new String(Files.readAllBytes(path), charset).replace(logon[0], productPutField.getText())
+                                    .getBytes(charset));
+                    Files.write(path,
+                            new String(Files.readAllBytes(path), charset).replace(logon[1], productAftorField.getText())
+                                    .getBytes(charset));
+                    Files.write(path,
+                            new String(Files.readAllBytes(path), charset).replace(logon[2], productSumField.getText())
+                                    .getBytes(charset));
+                    Files.write(path,
+                            new String(Files.readAllBytes(path), charset).replace(logon[4], productNameField.getText())
+                                    .getBytes(charset));
+                    Files.write(path,
+                            new String(Files.readAllBytes(path), charset).replace(logon[6], productLengthField.getText())
+                                    .getBytes(charset));
+                    Files.write(path,
+                            new String(Files.readAllBytes(path), charset).replace(logon[7], productWidthField.getText())
+                                    .getBytes(charset));
+                }
+            }
             Product.addProduct(product);
             okKlicked = true;
             dialogStage.close();
@@ -71,6 +132,12 @@ public class EditSceneController implements Initializable {
         }
         if (productAftorField.getText() == null || productAftorField.getText().length() == 0) {
             errorMessage += "Нет автора\n";
+        }
+        if (productLengthField.getText() == null || productLengthField.getText().length() == 0) {
+            errorMessage += "Нет Длины\n";
+        }
+        if (productWidthField.getText() == null || productWidthField.getText().length() == 0) {
+            errorMessage += "Нет Ширины\n";
         }
 
         if (errorMessage.length() == 0) {
@@ -98,6 +165,8 @@ public class EditSceneController implements Initializable {
             productNameField.setText(product.productNameProperty() !=null ? product.productNameProperty().getValue():"");
             productSumField.setText(product.productSumProperty() != null ? product.productSumProperty().getValue():"");
             productAftorField.setText(product.productAftorProperty() != null ?product.productAftorProperty().getValue():"");
+            productWidthField.setText(product.productWidthProperty() != null ?product.productWidthProperty().getValue():"");
+            productLengthField.setText(product.productLengthProperty() != null ?product.productLengthProperty().getValue():"");
         }
     }
 

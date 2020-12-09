@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.filterController">
+   <children>
+      <TableView fx:id="catalogTabel" layoutY="43.0" prefHeight="358.0" prefWidth="600.0">
+         <columns>
+            <TableColumn fx:id="ImageProduct" prefWidth="204.79998779296875" text="Товар" />
+            <TableColumn fx:id="AftorProduct" prefWidth="122.4000244140625" text="Автор" />
+            <TableColumn fx:id="SumProduct" prefWidth="83.20001220703125" text="Цена" />
+            <TableColumn fx:id="idProduct" prefWidth="79.199951171875" text="Артикуль" />
+            <TableColumn fx:id="NameProduct" prefWidth="109.5999755859375" text="Название" />
+         </columns>
+      </TableView>
+      <TextField fx:id="filterField" layoutX="240.0" layoutY="14.0" />
+      <Label layoutX="111.0" layoutY="18.0" text="Поле для поиска" />
+   </children>
+</AnchorPane>

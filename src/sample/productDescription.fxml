@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="466.0" prefWidth="655.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.productDescriptionController">
+   <children>
+      <ImageView fx:id="productImageField" fitHeight="220.0" fitWidth="211.0" layoutX="43.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="336.0" layoutY="115.0" text="Название картины" />
+      <Label layoutX="336.0" layoutY="154.0" text="Автор" />
+      <Label layoutX="336.0" layoutY="196.0" prefHeight="17.0" prefWidth="34.0" text="Цена" />
+      <Label layoutX="336.0" layoutY="233.0" text="Ширина" />
+      <Label layoutX="336.0" layoutY="279.0" text="Длина" />
+      <Label fx:id="productNameField" layoutX="469.0" layoutY="115.0" text="Label" />
+      <Label fx:id="productAftorField" layoutX="469.0" layoutY="154.0" text="Label" />
+      <Label fx:id="productSumField" layoutX="469.0" layoutY="196.0" text="Label" />
+      <Label fx:id="productLengthField" layoutX="469.0" layoutY="279.0" text="Label" />
+      <Label fx:id="productWidthField" layoutX="469.0" layoutY="233.0" text="Label" />
+      <Button layoutX="328.0" layoutY="366.0" mnemonicParsing="false" onAction="#addProduckFavorites" prefHeight="25.0" prefWidth="211.0" style="-fx-border-color: green;" text="Добавить в раздел &quot;Нравится&quot;" />
+      <Button fx:id="Cancel" layoutX="554.0" layoutY="366.0" mnemonicParsing="false" onAction="#handleCancel" text="Закрыть" />
+   </children>
+</AnchorPane>

@@ -52,14 +52,26 @@ public class productDescriptionController implements Initializable {
         Stage stage1 = (Stage) Cancel.getScene().getWindow();
         stage1.close();
     }
-
+    boolean haveProduct;
     @FXML
     private void addProduckFavorites() {
-        try (Scanner scan = new Scanner(new File("C:\\Users\\KP\\IdeaProjects\\Kursovaya2\\src\\sample\\ProductDataBase.txt"))) {
+
+        try (Scanner scan = new Scanner(new File("C:\\Users\\KP\\IdeaProjects\\Kursovaya2\\src\\sample\\ProductFavoritesDataBase.txt"))) {
             while (scan.hasNextLine()) {
+                System.out.println("Вывод информации");
                 String[] logon = scan.nextLine().split(",");
-                System.out.println(logon[0]);
+                System.out.println(logon[3] + "---"+ product.productIdProperty().getValue());
                 if (logon[3].equals(product.productIdProperty().getValue())) {
+                    haveProduct = true;
+                    break;
+                } else {
+                    haveProduct = false;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+                if (haveProduct) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
                     alert.setTitle("Предупреждение");
@@ -69,7 +81,6 @@ public class productDescriptionController implements Initializable {
                     alert.setContentText("Данный товара уже был добавленн в Избранное!");
 
                     alert.showAndWait();
-                    break;
                 } else {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 
@@ -92,10 +103,7 @@ public class productDescriptionController implements Initializable {
                         e.printStackTrace();
                     }
                 }
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+
     }
 
     @FXML

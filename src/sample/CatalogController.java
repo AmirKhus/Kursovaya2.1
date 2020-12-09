@@ -97,6 +97,21 @@ public class CatalogController extends loginFail implements Initializable {
     }
 
     @FXML
+    private void handleFilterProduct() {
+        Stage stage = new Stage();
+        stage.setTitle("Избранные");
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("MyProductFavorites.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
     private void BuyProduct() {
         Product selectedProduct = catalogTabel.getSelectionModel().getSelectedItem();
         if (selectedProduct != null) {

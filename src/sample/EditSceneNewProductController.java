@@ -8,10 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -32,6 +29,12 @@ public class EditSceneNewProductController extends loginFail implements Initiali
 
     @FXML
     private TextField productNameField;
+
+    @FXML
+    private TextField productWidthField;
+
+    @FXML
+    private TextField productLengthField;
 
     @FXML
     private Button Ok;
@@ -56,17 +59,18 @@ public class EditSceneNewProductController extends loginFail implements Initiali
 ////            product.setProductImage(productPutField.getText());
 //            Product.addProduct(product);
             int idProduct = (int) (Math.random() * 999999);
+
             System.out.println(idProduct);
-            String data = productPutField.getText() + "," + productAftorField.getText() + "," + productSumField.getText() + "," + idProduct + "," + productNameField.getText()+ "," + idAftor + "\n";
-            OutputStream os;
-            try {
-                //в конструкторе FileOutputStream используем флаг true, который обозначает обновление содержимого файла
-                os = new FileOutputStream(new File("C:\\Users\\KP\\IdeaProjects\\Kursovaya2\\src\\sample\\ProductDataBase.txt"), true);
+            String data = productPutField.getText() + "," + productAftorField.getText() + "," + productSumField.getText() + "," + idProduct + ","
+                        + productNameField.getText()+ "," + idAftor + "," +productLengthField.getText()+"," +productWidthField.getText()+"\n";
+
+            try (OutputStream os = new FileOutputStream(new File("C:\\Users\\KP\\IdeaProjects\\Kursovaya2\\src\\sample\\ProductDataBase.txt"), true)) {
                 os.write(data.getBytes("UTF8"), 0, data.getBytes("UTF8").length);
+            } catch (FileNotFoundException e) {
+                System.out.println("Путь не найден");
             } catch (IOException e) {
                 e.printStackTrace();
             }
-//C:\Users\KP\Downloads\images.png
 
         }
         Stage stage1 = (Stage) Ok.getScene().getWindow();
@@ -86,6 +90,12 @@ public class EditSceneNewProductController extends loginFail implements Initiali
         }
         if (productAftorField.getText() == null || productAftorField.getText().length() == 0) {
             errorMessage += "Нет автора\n";
+        }
+        if (productLengthField.getText() == null || productLengthField.getText().length() == 0) {
+            errorMessage += "Нет Длины\n";
+        }
+        if (productWidthField.getText() == null || productWidthField.getText().length() == 0) {
+            errorMessage += "Нет Ширины\n";
         }
 
         if (errorMessage.length() == 0) {

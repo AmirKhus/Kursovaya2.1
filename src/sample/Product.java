@@ -13,10 +13,35 @@ public class Product {
     private StringProperty productId;
     private StringProperty productSum;
     private StringProperty productPutImage;
+    private StringProperty productLength;
+    private StringProperty productWidth;
     private User user;
-//    private ImageView productImage;
     public ObjectProperty<ImageView> productImage = null;
 
+    public String getProductWidth() {
+        return this.productWidth.get();
+    }
+
+    public void setProductWidth(String productWidth) {
+        this.productWidth.set(productWidth);
+    }
+
+    public StringProperty productWidthProperty() {
+        return this.productWidth;
+    }
+    //    -------------------------------
+    public String getProductLength() {
+        return this.productLength.get();
+    }
+
+    public void setProductLength(String productLength) {
+        this.productLength.set(productLength);
+    }
+
+    public StringProperty productLengthProperty() {
+        return this.productLength;
+    }
+    //    -------------------------------
     public String getProductPutImage() {
         return this.productPutImage.get();
     }
@@ -103,12 +128,14 @@ public class Product {
         this.user = user;
     }
 
-    public Product(ImageView productImage, String ProductAftor, String productSum, String productId, String productName,User user,String productPutImage) {
+    public Product(ImageView productImage, String ProductAftor, String productSum, String productId, String productName,User user,String productPutImage,String productLength,String productWidth) {
         this.productName = new SimpleStringProperty(productName);
         this.productSum = new SimpleStringProperty(productSum);
         this.productImage = new SimpleObjectProperty(productImage);
         this.productAftor = new SimpleStringProperty (ProductAftor);
         this.productId = new SimpleStringProperty(productId);
+        this.productLength = new SimpleStringProperty(productLength);
+        this.productWidth = new SimpleStringProperty(productWidth);
         this.user = user;
         this.productPutImage = new SimpleStringProperty(productPutImage);
     }

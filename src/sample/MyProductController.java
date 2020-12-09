@@ -19,8 +19,14 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -82,10 +88,15 @@ public class MyProductController implements Initializable {
 //                (observable,oldValue,newValue )-> showProductDetails(newValue));//Что тут происходит
 //    }
 
+    private String ImagePutProductString;
+    private String AftorProductString;
+    private String SumProductString;
+    private String idProductString;
+    private String NameProductString;
     static String put;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        System.out.println("initializ -> "+idProductString);
         try (Scanner scan = new Scanner(new File("C:\\Users\\KP\\IdeaProjects\\Kursovaya2\\src\\sample\\ProductDataBase.txt"))) {
             while(scan.hasNextLine() ) {
                 String[] logon = scan.nextLine().split(",");
@@ -94,38 +105,107 @@ public class MyProductController implements Initializable {
                 Image img = new Image(new FileInputStream(logon[0]));
                 ImageView photo = new ImageView(img);
                 if (logon[5].equals(Main.user.getId())) {
-                    productData.add(new Product(photo, logon[1], logon[2], logon[3], logon[4], Main.user,logon[0]));
+                    productData.add(new Product(photo, logon[1], logon[2], logon[3], logon[4], Main.user,logon[0],logon[6],logon[7]));
                 }
             }
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-
             ImageProduct.setCellValueFactory(data -> data.getValue().productImageProperty());
             AftorProduct.setCellValueFactory(data -> data.getValue().productAftorProperty());
             SumProduct.setCellValueFactory(data -> data.getValue().productSumProperty());
             idProduct.setCellValueFactory(data -> data.getValue().productIdProperty());
             NameProduct.setCellValueFactory(data -> data.getValue().productNameProperty());
             catalogTabel.setItems(productData);
-//        catalogTabel.getSelectionModel().selectedItemProperty().addListener(
-//                (observable,oldValue,newValue )-> showProductDetails(newValue));
+
+        catalogTabel.getSelectionModel().selectedItemProperty().addListener(
+                (observable,oldValue,newValue )-> showProductDetails(newValue));
+
     }
-//    private void showProductDetails( Product product) {
-//        if (product != null) {
-//            idProduct.setText(product.productIdProperty().getValue().toString());
-//            System.out.println(product.productIdProperty().getValue().toString());
-//            AftorProduct.setText(product.productAftorProperty().toString());
-//            NameProduct.setText(product.productNameProperty().toString());//Зачем toString()
-//            SumProduct.setText(product.productSumProperty().toString());
-//            ImageProduct.setText(product.productImageProperty().toString());
-//        } else {
-//            idProduct.setText("");
-//            AftorProduct.setText("");
-//            NameProduct.setText("");
-//            AftorProduct.setText("");
-//            ImageProduct.setText("");
-//        }
-//    }
+    private void showProductDetails( Product product) {
+        if (product != null) {
+            System.out.println("HI");
+//            idProductString = product.productIdProperty().getValue().toString();
+//            AftorProductString = product.productAftorProperty().getValue();
+//            NameProductString =product.productNameProperty().getValue().toString();//Зачем toString()
+//            SumProductString =product.productSumProperty().getValue().toString();
+//            ImagePutProductString = product.productPutImage().getValue().toString();
+//            System.out.println("showProductDetails -> "+idProductString);
+//            String fileName = "C:\\Users\\KP\\IdeaProjects\\Kursovaya2\\src\\sample\\ProductDataBase.txt";
+//            Scanner scan;
+//            try {
+//                System.out.println("product.productIdProperty().getValue() "+product.productIdProperty().getValue());
+//                scan = new Scanner(new File(fileName));
+//                while(scan.hasNextLine()) {
+//                    String[] logon = scan.nextLine().split(",");
+//                    if (logon[3].equals(product.productIdProperty().getValue()) ) {
+//                        Charset charset = StandardCharsets.UTF_8;
+//                        Path path = Paths.get(fileName);
+//                        try {
+//                            Files.writeString(path,
+//                                    Files.readString(path, charset).replace(logon[0], ""), charset);
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                        try {
+//                            Files.writeString(path,
+//                                    Files.readString(path, charset).replace(logon[1], ""), charset);
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                        try {
+//                            Files.writeString(path,
+//                                    Files.readString(path, charset).replace(logon[2], ""), charset);
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                        try {
+//                            Files.writeString(path,
+//                                    Files.readString(path, charset).replace(logon[3], ""), charset);
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                        try {
+//                            Files.writeString(path,
+//                                    Files.readString(path, charset).replace(logon[4], ""), charset);
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                        try {
+//                            Files.writeString(path,
+//                                    Files.readString(path, charset).replace(logon[5], ""), charset);
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                        try {
+//                            Files.writeString(path,
+//                                    Files.readString(path, charset).replace(logon[6], ""), charset);
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                        try {
+//                            Files.writeString(path,
+//                                    Files.readString(path, charset).replace(logon[7], ""), charset);
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                        System.out.println(" handleDeleteProduc POSLE -> "+idProductString);
+//                        break;
+//                    }
+//                }
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            }
+
+
+        } else {
+            idProduct.setText("");
+            AftorProduct.setText("");
+            NameProduct.setText("");
+            AftorProduct.setText("");
+            ImageProduct.setText("");
+        }
+    }
 
 
     @FXML
@@ -146,12 +226,16 @@ public class MyProductController implements Initializable {
             System.out.println("jopa");
         }
     }
-
+    static Product product;
     @FXML
-    private void handleDeleteProduc() {
+    private void handleDeleteProduc() throws IOException {
+        System.out.println(" handleDeleteProduc DO -> "+idProductString);
         int selectedIndex = catalogTabel.getSelectionModel().getSelectedIndex();
+        System.out.println(" handleDeleteProduc DO 1.2-> "+idProductString);
+        System.out.println("product.productIdProperty().getValue() "+product.productIdProperty().getValue());
         if (selectedIndex >= 0) {
-            catalogTabel.getItems().remove(selectedIndex);
+            catalogTabel.getItems();
+            System.out.println("product.productIdProperty().getValue() "+product.productIdProperty().getValue());
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(null);
