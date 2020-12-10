@@ -93,7 +93,7 @@ public class loginFail implements Initializable {
                         SurnameCase =logon[3];
                         NameCase = logon[2];
                         idAftor = logon[4];
-                        Main.user = new User(logon[0],logon[2],logon[3],logon[1],logon[4]);
+                        Main.user = new User(logon[0],logon[2],logon[3],logon[1],logon[4],logon[5]);
                     }else {
                         nePravilno = true;
                     }

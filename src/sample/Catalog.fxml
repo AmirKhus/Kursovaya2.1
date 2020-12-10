@@ -71,7 +71,8 @@
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="124.0" prefWidth="598.0" />
                                     <HBox spacing="15.0">
                                        <children>
-                                          <Button fx:id="BuyProduct" mnemonicParsing="false" onAction="#BuyProduct" prefHeight="26.0" prefWidth="516.0" text="Подробнее о товаре" textAlignment="CENTER" />
+                                          <Button fx:id="BuyProduct" mnemonicParsing="false" onAction="#BuyProduct" prefHeight="26.0" prefWidth="339.0" text="Подробнее о товаре" textAlignment="CENTER" />
+                                          <Button mnemonicParsing="false" onAction="#handleFilterProduct" prefHeight="26.0" prefWidth="158.0" text="Поиск товара" />
                                        </children>
                                     </HBox>
                                 </items>
@@ -94,18 +95,28 @@
                                     <Font size="23.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="47.0" layoutY="42.0" text="Имя">
+                              <Label layoutX="27.0" layoutY="42.0" text="Имя">
                                  <font>
                                     <Font size="23.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="47.0" layoutY="82.0" text="Фамилия">
+                              <Label layoutX="22.0" layoutY="82.0" text="Фамилия">
                                  <font>
                                     <Font size="23.0" />
                                  </font>
                               </Label>
                               <Button fx:id="MyProduct" layoutX="50.0" layoutY="344.0" mnemonicParsing="false" text="Мои товары" />
-                              <Button fx:id="MyOrders" layoutX="204.0" layoutY="344.0" mnemonicParsing="false" onAction="#handleShowMyProductFavorites" text="Мои заказы" />
+                              <Button fx:id="MyOrders" layoutX="204.0" layoutY="344.0" mnemonicParsing="false" onAction="#handleShowMyProductFavorites" text="Избранное" />
+                              <Label layoutX="25.0" layoutY="123.0" text="Номер телефона">
+                                 <font>
+                                    <Font size="23.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="Phon" layoutX="225.0" layoutY="123.0" text="Label">
+                                 <font>
+                                    <Font size="23.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </AnchorPane>
                      </content>

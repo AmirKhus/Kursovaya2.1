@@ -17,6 +17,7 @@ public class Main extends Application {
     }
 
     public static User user;
+    public static ArrayObject arrayObject;
 
 
     public static void main(String[] args) {

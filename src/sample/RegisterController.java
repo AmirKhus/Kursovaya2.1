@@ -26,7 +26,7 @@ public class RegisterController implements Initializable {
     private TextField Login;
 
     @FXML
-    private PasswordField Password;
+    private TextField Password;
 
     @FXML
     private TextField Name;
@@ -36,6 +36,9 @@ public class RegisterController implements Initializable {
 
     @FXML
     private Button RegistorButton;
+
+    @FXML
+    private Button Phon;
 
     @FXML
     private Button CancelButton;
@@ -137,7 +140,7 @@ public class RegisterController implements Initializable {
             if (NeZanyat) {
                 int idPeson = (int) (Math.random() * 999999);
                 System.out.println(idPeson);
-                String data = Login.getText() + "," + Password.getText() + "," + Name.getText() + "," + Surname.getText() + "," + idPeson + "\n";
+                String data = Login.getText() + "," + Password.getText() + "," + Name.getText() + "," + Surname.getText() + "," + idPeson + "," + Phon.getText()+ "\n";
                 OutputStream os = null;
                 try {
                     //в конструкторе FileOutputStream используем флаг true, который обозначает обновление содержимого файла

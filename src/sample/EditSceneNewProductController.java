@@ -67,7 +67,8 @@ public class EditSceneNewProductController extends loginFail implements Initiali
             try (OutputStream os = new FileOutputStream(new File("C:\\Users\\KP\\IdeaProjects\\Kursovaya2\\src\\sample\\ProductDataBase.txt"), true)) {
                 os.write(data.getBytes("UTF8"), 0, data.getBytes("UTF8").length);
             } catch (FileNotFoundException e) {
-                System.out.println("Путь не найден");
+
+                System.out.println("Путь к картине не найден");
             } catch (IOException e) {
                 e.printStackTrace();
             }

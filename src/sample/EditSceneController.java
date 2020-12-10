@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
@@ -17,6 +18,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -47,6 +49,7 @@ public class EditSceneController implements Initializable {
     private Stage dialogStage;
     private Product product;
     private boolean okKlicked = false;
+    private static ArrayObject arrayObject;
 
     public boolean isOkKlicked() {
         return okKlicked;
@@ -87,38 +90,94 @@ public class EditSceneController implements Initializable {
 //                }
 
 //            if (logon[3].equals(product.productIdProperty().getValue()) ) {
-            String fileName = "C:\\Users\\KP\\IdeaProjects\\Kursovaya2\\src\\sample\\ProductDataBase.txt";
-            Scanner scan = new Scanner(new File(fileName));
-            while(scan.hasNextLine()) {
-                String[] logon = scan.nextLine().split(",");
-                if (logon[3].equals(product.productIdProperty().getValue()) ) {
-                    Charset charset = StandardCharsets.UTF_8;
-                    Path path = Paths.get(fileName);
-                    Files.write(path,
-                            new String(Files.readAllBytes(path), charset).replace(logon[0], productPutField.getText())
-                                    .getBytes(charset));
-                    Files.write(path,
-                            new String(Files.readAllBytes(path), charset).replace(logon[1], productAftorField.getText())
-                                    .getBytes(charset));
-                    Files.write(path,
-                            new String(Files.readAllBytes(path), charset).replace(logon[2], productSumField.getText())
-                                    .getBytes(charset));
-                    Files.write(path,
-                            new String(Files.readAllBytes(path), charset).replace(logon[4], productNameField.getText())
-                                    .getBytes(charset));
-                    Files.write(path,
-                            new String(Files.readAllBytes(path), charset).replace(logon[6], productLengthField.getText())
-                                    .getBytes(charset));
-                    Files.write(path,
-                            new String(Files.readAllBytes(path), charset).replace(logon[7], productWidthField.getText())
-                                    .getBytes(charset));
+
+
+//            String fileName = "C:\\Users\\KP\\IdeaProjects\\Kursovaya2\\src\\sample\\ProductDataBase.txt";
+//            Scanner scan = new Scanner(new File(fileName));
+//            while(scan.hasNextLine()) {
+//                String[] logon = scan.nextLine().split(",");
+//                if (logon[3].equals(product.productIdProperty().getValue()) ) {
+//                    Charset charset = StandardCharsets.UTF_8;
+//                    Path path = Paths.get(fileName);
+//                    Files.write(path,
+//                            new String(Files.readAllBytes(path), charset).replace(logon[0], productPutField.getText())
+//                                    .getBytes(charset));
+//                    Files.write(path,
+//                            new String(Files.readAllBytes(path), charset).replace(logon[1], productAftorField.getText())
+//                                    .getBytes(charset));
+//                    Files.write(path,
+//                            new String(Files.readAllBytes(path), charset).replace(logon[2], productSumField.getText())
+//                                    .getBytes(charset));
+//                    Files.write(path,
+//                            new String(Files.readAllBytes(path), charset).replace(logon[4], productNameField.getText())
+//                                    .getBytes(charset));
+//                    Files.write(path,
+//                            new String(Files.readAllBytes(path), charset).replace(logon[6], productLengthField.getText())
+//                                    .getBytes(charset));
+//                    Files.write(path,
+//                            new String(Files.readAllBytes(path), charset).replace(logon[7], productWidthField.getText())
+//                                    .getBytes(charset));
+//                }
+//            }
+
+
+            WriteArrayWithFile();
+            for (int i = 0; i <arrayObject.getBody().length ; i++) {
+                if (arrayObject.body[i].equals(product.productIdProperty().getValue())) {
+                    arrayObject.body[i - 3] = productPutField.getText();
+                    arrayObject.body[i - 2] =productAftorField.getText();
+                    arrayObject.body[i - 1]=productSumField.getText();
+//                array[3] idproduct;//
+                    arrayObject.body[i + 1]= productNameField.getText();
+//                array[5]= idaftor
+                    arrayObject.body[i + 3]= productLengthField.getText();
+                    arrayObject.body[i + 4]=productWidthField.getText();
                 }
+            }
+            FileWriter filewriter;
+            int coutCell = 0;
+            try {
+                filewriter = new FileWriter(new File("C:\\Users\\KP\\IdeaProjects\\Kursovaya2\\src\\sample\\ProductDataBase.txt "));
+                for (int i = 0; i < arrayObject.getBody().length; ++i)
+                    if (coutCell < 7) {
+                        filewriter.write(arrayObject.getBody()[i] + ",");
+                        coutCell++;
+                        System.out.println(coutCell);
+                    } else {
+                        filewriter.write(arrayObject.getBody()[i] + "\n");
+                        coutCell = 0;
+                    }
+                filewriter.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
             Product.addProduct(product);
             okKlicked = true;
             dialogStage.close();
         }
     }
+
+    static void WriteArrayWithFile() {
+        ArrayList<String> list = new ArrayList<>();
+        try (Scanner scan = new Scanner(new File("C:\\Users\\KP\\IdeaProjects\\Kursovaya2\\src\\sample\\ProductDataBase.txt"))) {
+            while (scan.hasNextLine()) {
+                String[] logon = scan.nextLine().split(",");
+                for (int i = 0; i < logon.length; i++) {
+                    list.add(logon[i]);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        String[] array = list.toArray(new String[0]);
+        arrayObject = new ArrayObject(array);
+        for (int i = 0; i < array.length; i++) {
+            System.out.println("array["+i+"] = "+array[i]);
+        }
+    }
+
+    
     private boolean isInputValid(){
         String errorMessage = "";
         if  (productPutField.getText() == null || productPutField.getText().length() == 0) {

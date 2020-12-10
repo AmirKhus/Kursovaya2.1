@@ -17,10 +17,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -52,6 +51,8 @@ public class MyProductFavoritesController implements Initializable {
     private TableColumn<Product, String> NameProduct;
 
     static String put;
+    private String idProductString;
+    private static ArrayObject arrayObject;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -77,45 +78,60 @@ public class MyProductFavoritesController implements Initializable {
         idProduct.setCellValueFactory(data -> data.getValue().productIdProperty());
         NameProduct.setCellValueFactory(data -> data.getValue().productNameProperty());
         catalogTabel.setItems(productData);
-//        catalogTabel.getSelectionModel().selectedItemProperty().addListener(
-//                (observable,oldValue,newValue )-> showProductDetails(newValue));
+
+        catalogTabel.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> showProductDetails(newValue));
     }
-//    private void showProductDetails( Product product) {
-//        if (product != null) {
-//            idProduct.setText(product.productIdProperty().getValue().toString());
-//            System.out.println(product.productIdProperty().getValue().toString());
-//            AftorProduct.setText(product.productAftorProperty().toString());
-//            NameProduct.setText(product.productNameProperty().toString());//Зачем toString()
-//            SumProduct.setText(product.productSumProperty().toString());
-//            ImageProduct.setText(product.productImageProperty().toString());
-//        } else {
-//            idProduct.setText("");
-//            AftorProduct.setText("");
-//            NameProduct.setText("");
-//            AftorProduct.setText("");
-//            ImageProduct.setText("");
-//        }
-//    }
-
-
-    @FXML
-    private void handleNewProduct() {
-        Stage stage = new Stage();
-        stage.setTitle("New product");
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(getClass().getResource("/sample/productDescription.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
+    private void showProductDetails( Product product) {
+        if (product != null) {
+            idProductString = product.getProductId();
+            System.out.println(idProductString+"showProductDetails");
+        } else {
         }
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
     }
 
+    static Product product;
     @FXML
     private void handleDeleteProduc() {
         int selectedIndex = catalogTabel.getSelectionModel().getSelectedIndex();
+        WriteArrayWithFile();
+        for (int i = 0; i < arrayObject.getBody().length; i++) {
+            if (arrayObject.body[i].equals(idProductString)) {
+
+                arrayObject.body[i - 3] = "";
+                arrayObject.body[i - 2] = "";
+                arrayObject.body[i - 1] = "";
+                arrayObject.body[i] = "";
+                arrayObject.body[i + 1] = "";
+                arrayObject.body[i + 2] = "";
+                arrayObject.body[i + 3] = "";
+                arrayObject.body[i + 4] = "";
+            }
+        }
+        FileWriter filewriter;
+        int coutCell = 0;
+        try {
+            filewriter = new FileWriter(new File("C:\\Users\\KP\\IdeaProjects\\Kursovaya2\\src\\sample\\ProductFavoritesDataBase.txt "));
+            for (int i = 0; i < arrayObject.getBody().length; ++i)
+                if (coutCell < 7) {
+                    System.out.println(idProductString);
+                    if (arrayObject.body[i].equals("")) {
+                    }else {
+                        filewriter.write(arrayObject.getBody()[i]+",");
+                    }
+                    coutCell++;
+                    System.out.println(coutCell);
+                } else {
+                    if (arrayObject.body[i].equals("")) {
+                    }else {
+                        filewriter.write(arrayObject.getBody()[i] + "\n");
+                    }
+                    coutCell = 0;
+                }
+            filewriter.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         if (selectedIndex >= 0) {
             catalogTabel.getItems().remove(selectedIndex);
         } else {
@@ -129,25 +145,23 @@ public class MyProductFavoritesController implements Initializable {
         }
     }
 
-
-    @FXML
-    private void handleEditProduct() {
-        Product selectedProduct = catalogTabel.getSelectionModel().getSelectedItem();
-        if (selectedProduct != null) {
-            boolean okClicked = showProdoctEditDialog(selectedProduct);
-            if (okClicked) {
-                int selectedIndex = catalogTabel.getSelectionModel().getSelectedIndex();
-                productData.set(selectedIndex, selectedProduct);
+    static void WriteArrayWithFile() {
+        ArrayList<String> list = new ArrayList<>();
+        try (Scanner scan = new Scanner(new File("C:\\Users\\KP\\IdeaProjects\\Kursovaya2\\src\\sample\\ProductFavoritesDataBase.txt"))) {
+            while (scan.hasNextLine()) {
+                String[] logon = scan.nextLine().split(",");
+                for (int i = 0; i < logon.length; i++) {
+                    list.add(logon[i]);
+                }
             }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
-        } else {
-//        Ничего не выбрано.
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.initOwner(null);
-            alert.setTitle("Ничего не набрано");
-            alert.setHeaderText("Нет продукта");
-            alert.setContentText("Выберите продукт в таблице");
-            alert.showAndWait();
+        String[] array = list.toArray(new String[0]);
+        arrayObject = new ArrayObject(array);
+        for (int i = 0; i < array.length; i++) {
+            System.out.println("array[" + i + "] = " + array[i]);
         }
     }
 
@@ -158,13 +172,33 @@ public class MyProductFavoritesController implements Initializable {
         stage1.close();
     }
 
+    @FXML
+    private void BuyProduct() {
+        Product selectedProduct = catalogTabel.getSelectionModel().getSelectedItem();
+        if (selectedProduct != null) {
+            boolean okClicked = showProdoctEditDialog(selectedProduct);
+            if (okClicked) {
+                int selectedIndex = catalogTabel.getSelectionModel().getSelectedIndex();
+                productData.set(selectedIndex, selectedProduct);
+            }
 
-    public boolean showProdoctEditDialog(Product product) {
+        }else{
+//        Ничего не выбрано.
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.initOwner(null);
+            alert.setTitle("Ничего не набрано");
+            alert.setHeaderText("Нет продукта");
+            alert.setContentText("Выберите продукт в таблице");
+            alert.showAndWait();
+        }
+    }
+
+    public boolean showProdoctEditDialog(Product product){
         try {
 //          Загружаем fxml-файл и создаем новую сцену для
 //          для всплывающего диалогового окна
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(EditSceneController.class.getResource("EditScene.fxml"));
+            loader.setLocation(EditSceneController.class.getResource("productDescription.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
 
 //    Создаем диалоговое окно Stage
@@ -175,13 +209,13 @@ public class MyProductFavoritesController implements Initializable {
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 //    Передаём адресата в контроллер.
-            EditSceneController controller = loader.getController();
+            productDescriptionController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setProduct(product);
 // диалоговое окно и ждет, пока пользователь его не закроет
             dialogStage.showAndWait();
             return controller.isOkKlicked();
-        } catch (IOException e) {
+        }catch (IOException e) {
             e.printStackTrace();
             return false;
         }

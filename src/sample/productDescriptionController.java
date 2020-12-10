@@ -34,6 +34,9 @@ public class productDescriptionController implements Initializable {
     private Label productLengthField;
 
     @FXML
+    private Label productAftorPhonField;
+
+    @FXML
     private Label productWidthField;
 
     @FXML
@@ -93,7 +96,7 @@ public class productDescriptionController implements Initializable {
                     alert.showAndWait();
                     String data = product.productPutImage().getValue() + "," + product.productAftorProperty().getValue() + "," + product.productSumProperty().getValue() + ","
                             + product.productIdProperty().getValue() + "," + product.productNameProperty().getValue() + "," + Main.user.getId() + "," + product.productLengthProperty().getValue()
-                            + "," + product.productWidthProperty().getValue() + "\n";
+                            + "," + product.productWidthProperty().getValue() + "," + Main.user.getId()+ "\n";
                     OutputStream os;
                     try {
                         //в конструкторе FileOutputStream используем флаг true, который обозначает обновление содержимого файла
@@ -114,8 +117,6 @@ public class productDescriptionController implements Initializable {
             product.setProductAftor(productAftorField.getText());
             product.setProductLength(productLengthField.getText());
             product.setProductWidth(productWidthField.getText());
-//            product.setProductImage(productPutField.getText());
-
 
             Scanner scan = new Scanner(new File("C:\\Users\\KP\\IdeaProjects\\Kursovaya2\\src\\sample\\ProductDataBase.txt"));
             while (scan.hasNextLine()) {
@@ -184,6 +185,7 @@ public class productDescriptionController implements Initializable {
             productAftorField.setText(product.productAftorProperty() != null ? product.productAftorProperty().getValue() : "");
             productWidthField.setText(product.productWidthProperty() != null ? product.productWidthProperty().getValue() : "");
             productLengthField.setText(product.productLengthProperty() != null ? product.productLengthProperty().getValue() : "");
+            productAftorPhonField.setText(Main.user.getPhon()!= null ? Main.user.getPhon():"");
         }
     }
 

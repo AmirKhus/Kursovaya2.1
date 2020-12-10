@@ -72,6 +72,9 @@ public class CatalogController extends loginFail implements Initializable {
     private Label Name;
 
     @FXML
+    private Label Phon;
+
+    @FXML
     private Label Surname;
 
 
@@ -102,7 +105,7 @@ public class CatalogController extends loginFail implements Initializable {
         stage.setTitle("Избранные");
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("MyProductFavorites.fxml"));
+            root = FXMLLoader.load(getClass().getResource("filter.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -184,6 +187,7 @@ public class CatalogController extends loginFail implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Name.setText(Main.user.getFirstName());
         Surname.setText(Main.user.getLastName());
+        Phon.setText(Main.user.getPhon());
         MyProduct.setOnAction(event -> {
             Stage stage = new Stage();
             stage.setTitle("Мои товары");

@@ -17,16 +17,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -57,159 +55,51 @@ public class MyProductController implements Initializable {
 
     @FXML
     private TableColumn<Product, String> NameProduct;
-//    public void ShowInfoProduct() {
-//        try (Scanner scan = new Scanner(new File("C:\\Users\\KP\\IdeaProjects\\Kursovaya2\\src\\sample\\ProductDataBase.txt"))) {
-//            while(scan.hasNextLine() ) {
-//                String[] logon = scan.nextLine().split(",");
-////                Image img = new Image(new FileInputStream("C:\\Users\\KP\\IdeaProjects\\untitled3\\src\\sample\\ruki.png"));
-////                ImageView photo = new ImageView(img);
-//                String put= "ruki2.png";
-//                Image img = new Image(getClass().getResource(put).toExternalForm());
-//                ImageView photo = new ImageView(img);
-//                if (logon[5].equals(Main.user.getId())) {
-//                    productData.add(new Product( logon[1], logon[2], logon[3], logon[4], Main.user));
-//                    System.out.println(logon[1]);
-//                }
-//;
-//            }
-//        } catch (IOException ex) {
-//            ex.printStackTrace();
-//        }
-//
-//        ImageProduct.setCellValueFactory(new PropertyValueFactory<>("ImageProduct"));
-//        AftorProduct.setCellValueFactory(new PropertyValueFactory<>("AftorProduct"));
-//        SumProduct.setCellValueFactory(new PropertyValueFactory<>("SumProduct"));
-//        idProduct.setCellValueFactory(new PropertyValueFactory<>("idProduct"));
-//        NameProduct.setCellValueFactory(new PropertyValueFactory<>("NameProduct"));
-//
-//        catalogTabel.setItems(productData);
-//
-//        catalogTabel.getSelectionModel().selectedItemProperty().addListener(
-//                (observable,oldValue,newValue )-> showProductDetails(newValue));//Что тут происходит
-//    }
 
-    private String ImagePutProductString;
-    private String AftorProductString;
-    private String SumProductString;
     private String idProductString;
-    private String NameProductString;
+    private static ArrayObject arrayObject;
     static String put;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("initializ -> "+idProductString);
+        System.out.println("initializ -> " + idProductString);
         try (Scanner scan = new Scanner(new File("C:\\Users\\KP\\IdeaProjects\\Kursovaya2\\src\\sample\\ProductDataBase.txt"))) {
-            while(scan.hasNextLine() ) {
+            while (scan.hasNextLine()) {
                 String[] logon = scan.nextLine().split(",");
                 System.out.println(logon[0]);
                 put = logon[0];
                 Image img = new Image(new FileInputStream(logon[0]));
                 ImageView photo = new ImageView(img);
                 if (logon[5].equals(Main.user.getId())) {
-                    productData.add(new Product(photo, logon[1], logon[2], logon[3], logon[4], Main.user,logon[0],logon[6],logon[7]));
+                    productData.add(new Product(photo, logon[1], logon[2], logon[3], logon[4], Main.user, logon[0], logon[6], logon[7]));
                 }
             }
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-            ImageProduct.setCellValueFactory(data -> data.getValue().productImageProperty());
-            AftorProduct.setCellValueFactory(data -> data.getValue().productAftorProperty());
-            SumProduct.setCellValueFactory(data -> data.getValue().productSumProperty());
-            idProduct.setCellValueFactory(data -> data.getValue().productIdProperty());
-            NameProduct.setCellValueFactory(data -> data.getValue().productNameProperty());
-            catalogTabel.setItems(productData);
+        ImageProduct.setCellValueFactory(data -> data.getValue().productImageProperty());
+        AftorProduct.setCellValueFactory(data -> data.getValue().productAftorProperty());
+        SumProduct.setCellValueFactory(data -> data.getValue().productSumProperty());
+        idProduct.setCellValueFactory(data -> data.getValue().productIdProperty());
+        NameProduct.setCellValueFactory(data -> data.getValue().productNameProperty());
+        catalogTabel.setItems(productData);
+
 
         catalogTabel.getSelectionModel().selectedItemProperty().addListener(
-                (observable,oldValue,newValue )-> showProductDetails(newValue));
+                (observable, oldValue, newValue) -> showProductDetails(newValue));
 
     }
     private void showProductDetails( Product product) {
         if (product != null) {
-            System.out.println("HI");
-//            idProductString = product.productIdProperty().getValue().toString();
-//            AftorProductString = product.productAftorProperty().getValue();
-//            NameProductString =product.productNameProperty().getValue().toString();//Зачем toString()
-//            SumProductString =product.productSumProperty().getValue().toString();
-//            ImagePutProductString = product.productPutImage().getValue().toString();
-//            System.out.println("showProductDetails -> "+idProductString);
-//            String fileName = "C:\\Users\\KP\\IdeaProjects\\Kursovaya2\\src\\sample\\ProductDataBase.txt";
-//            Scanner scan;
-//            try {
-//                System.out.println("product.productIdProperty().getValue() "+product.productIdProperty().getValue());
-//                scan = new Scanner(new File(fileName));
-//                while(scan.hasNextLine()) {
-//                    String[] logon = scan.nextLine().split(",");
-//                    if (logon[3].equals(product.productIdProperty().getValue()) ) {
-//                        Charset charset = StandardCharsets.UTF_8;
-//                        Path path = Paths.get(fileName);
-//                        try {
-//                            Files.writeString(path,
-//                                    Files.readString(path, charset).replace(logon[0], ""), charset);
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                        try {
-//                            Files.writeString(path,
-//                                    Files.readString(path, charset).replace(logon[1], ""), charset);
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                        try {
-//                            Files.writeString(path,
-//                                    Files.readString(path, charset).replace(logon[2], ""), charset);
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                        try {
-//                            Files.writeString(path,
-//                                    Files.readString(path, charset).replace(logon[3], ""), charset);
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                        try {
-//                            Files.writeString(path,
-//                                    Files.readString(path, charset).replace(logon[4], ""), charset);
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                        try {
-//                            Files.writeString(path,
-//                                    Files.readString(path, charset).replace(logon[5], ""), charset);
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                        try {
-//                            Files.writeString(path,
-//                                    Files.readString(path, charset).replace(logon[6], ""), charset);
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                        try {
-//                            Files.writeString(path,
-//                                    Files.readString(path, charset).replace(logon[7], ""), charset);
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                        System.out.println(" handleDeleteProduc POSLE -> "+idProductString);
-//                        break;
-//                    }
-//                }
-//            } catch (FileNotFoundException e) {
-//                e.printStackTrace();
-//            }
-
-
+            idProductString = product.getProductId();
+            System.out.println(idProductString+"showProductDetails");
         } else {
-            idProduct.setText("");
-            AftorProduct.setText("");
-            NameProduct.setText("");
-            AftorProduct.setText("");
-            ImageProduct.setText("");
         }
     }
 
 
     @FXML
-    private void handleNewProduct(){
+    private void handleNewProduct() {
         Stage stage = new Stage();
         stage.setTitle("New product");
         Parent root = null;
@@ -222,20 +112,54 @@ public class MyProductController implements Initializable {
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-        }else {
-            System.out.println("jopa");
+        } else {
+            System.out.println("Error");
         }
     }
+
     static Product product;
     @FXML
-    private void handleDeleteProduc() throws IOException {
-        System.out.println(" handleDeleteProduc DO -> "+idProductString);
+    private void handleDeleteProduc() {
         int selectedIndex = catalogTabel.getSelectionModel().getSelectedIndex();
-        System.out.println(" handleDeleteProduc DO 1.2-> "+idProductString);
-        System.out.println("product.productIdProperty().getValue() "+product.productIdProperty().getValue());
+        WriteArrayWithFile();
+        for (int i = 0; i < arrayObject.getBody().length; i++) {
+            if (arrayObject.body[i].equals(idProductString)) {
+                arrayObject.body[i - 3] = "";
+                arrayObject.body[i - 2] = "";
+                arrayObject.body[i - 1] = "";
+                arrayObject.body[i] = "";
+                arrayObject.body[i + 1] = "";
+                arrayObject.body[i + 2] = "";
+                arrayObject.body[i + 3] = "";
+                arrayObject.body[i + 4] = "";
+            }
+        }
+        FileWriter filewriter;
+        int coutCell = 0;
+        try {
+            filewriter = new FileWriter(new File("C:\\Users\\KP\\IdeaProjects\\Kursovaya2\\src\\sample\\ProductDataBase.txt "));
+            for (int i = 0; i < arrayObject.getBody().length; ++i)
+                if (coutCell < 7) {
+                    System.out.println(idProductString);
+                    if (arrayObject.body[i].equals("")) {
+                    }else {
+                        filewriter.write(arrayObject.getBody()[i]+",");
+                    }
+                    coutCell++;
+                    System.out.println(coutCell);
+                } else {
+                    if (arrayObject.body[i].equals("")) {
+                    }else {
+                        filewriter.write(arrayObject.getBody()[i] + "\n");
+                    }
+                    coutCell = 0;
+                }
+            filewriter.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         if (selectedIndex >= 0) {
-            catalogTabel.getItems();
-            System.out.println("product.productIdProperty().getValue() "+product.productIdProperty().getValue());
+            catalogTabel.getItems().remove(selectedIndex);
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(null);
@@ -248,6 +172,26 @@ public class MyProductController implements Initializable {
     }
 
 
+    static void WriteArrayWithFile() {
+        ArrayList<String> list = new ArrayList<>();
+        try (Scanner scan = new Scanner(new File("C:\\Users\\KP\\IdeaProjects\\Kursovaya2\\src\\sample\\ProductDataBase.txt"))) {
+            while (scan.hasNextLine()) {
+                String[] logon = scan.nextLine().split(",");
+                for (int i = 0; i < logon.length; i++) {
+                    list.add(logon[i]);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        String[] array = list.toArray(new String[0]);
+        arrayObject = new ArrayObject(array);
+        for (int i = 0; i < array.length; i++) {
+            System.out.println("array[" + i + "] = " + array[i]);
+        }
+    }
+
     @FXML
     private void handleEditProduct() {
         Product selectedProduct = catalogTabel.getSelectionModel().getSelectedItem();
@@ -258,7 +202,7 @@ public class MyProductController implements Initializable {
                 productData.set(selectedIndex, selectedProduct);
             }
 
-        }else{
+        } else {
 //        Ничего не выбрано.
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(null);
@@ -277,7 +221,7 @@ public class MyProductController implements Initializable {
     }
 
 
-    public boolean showProdoctEditDialog(Product product){
+    public boolean showProdoctEditDialog(Product product) {
         try {
 //          Загружаем fxml-файл и создаем новую сцену для
 //          для всплывающего диалогового окна
@@ -299,36 +243,10 @@ public class MyProductController implements Initializable {
 // диалоговое окно и ждет, пока пользователь его не закроет
             dialogStage.showAndWait();
             return controller.isOkKlicked();
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
     }
-//    public boolean showProdoctEditDialogNewProduct(Product product){
-//        try {
-////          Загружаем fxml-файл и создаем новую сцену для
-////          для всплывающего диалогового окна
-//            FXMLLoader loader = new FXMLLoader();
-//            loader.setLocation(EditSceneNewProductController.class.getResource("EditSceneNewProduct.fxml"));
-//            AnchorPane page = (AnchorPane) loader.load();
-//
-////    Создаем диалоговое окно Stage
-//            Stage dialogStage = new Stage();
-//            dialogStage.setTitle("New Product");
-//            dialogStage.initModality(Modality.WINDOW_MODAL);
-//            dialogStage.initOwner(null);
-//            Scene scene = new Scene(page);
-//            dialogStage.setScene(scene);
-////    Передаём адресата в контроллер.
-//            EditSceneNewProductController controller = loader.getController();
-//            controller.setDialogStage(dialogStage);
-//            controller.setProduct(product);
-//// диалоговое окно и ждет, пока пользователь его не закроет
-//            dialogStage.showAndWait();
-//            return controller.isOkKlicked();
-//        }catch (IOException e) {
-//            e.printStackTrace();
-//            return false;
-//        }
-//    }
+
 }
