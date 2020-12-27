@@ -10,6 +10,7 @@ public class ArrayObject {
     public ArrayObject(String[] body) {
         this.body = body;
     }
+
     public ArrayObject() {
     }
 

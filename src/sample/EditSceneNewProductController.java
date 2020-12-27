@@ -52,30 +52,28 @@ public class EditSceneNewProductController extends loginFail implements Initiali
     @FXML
     void handleOk() {
         if (isInputValid()) {
-//            product.setProductName(productNameField.getText());
-//            product.setProductSum(productSumField.getText());
-//            product.setProductAftor(productAftorField.getText());
-//            product.setProductPutImage(productPutField.getText());
-////            product.setProductImage(productPutField.getText());
-//            Product.addProduct(product);
             int idProduct = (int) (Math.random() * 999999);
 
             System.out.println(idProduct);
             String data = productPutField.getText() + "," + productAftorField.getText() + "," + productSumField.getText() + "," + idProduct + ","
-                        + productNameField.getText()+ "," + idAftor + "," +productLengthField.getText()+"," +productWidthField.getText()+"\n";
+                    + productNameField.getText() + "," + idAftor + "," + productLengthField.getText() + "," + productWidthField.getText() + "\n";
 
-            try (OutputStream os = new FileOutputStream(new File("C:\\Users\\KP\\IdeaProjects\\Kursovaya2\\src\\sample\\ProductDataBase.txt"), true)) {
+            try (OutputStream os = new FileOutputStream(new File("ProductDataBase.txt"), true)) {
                 os.write(data.getBytes("UTF8"), 0, data.getBytes("UTF8").length);
             } catch (FileNotFoundException e) {
-
-                System.out.println("Путь к картине не найден");
+                String errorMessage = "";
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Неверный путь");
+                alert.setHeaderText("Внесите корректную информацию");
+                alert.setContentText(errorMessage);
+                alert.showAndWait();
             } catch (IOException e) {
+                System.out.println("ыфвфывфыв");
                 e.printStackTrace();
             }
-
+            Stage stage1 = (Stage) Ok.getScene().getWindow();
+            stage1.close();
         }
-        Stage stage1 = (Stage) Ok.getScene().getWindow();
-        stage1.close();
     }
 
     private boolean isInputValid() {

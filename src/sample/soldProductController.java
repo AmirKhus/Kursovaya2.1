@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
-public class MyProductController implements Initializable {
+public class soldProductController implements Initializable {
 
     final ObservableList<Product> productData = FXCollections.observableArrayList();
 
@@ -58,16 +58,14 @@ public class MyProductController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("initializ -> " + idProductString);
-        try (Scanner scan = new Scanner(new File("ProductDataBase.txt"))) {
+        try (Scanner scan = new Scanner(new File("soldProduct.txt"))) {
             while (scan.hasNextLine()) {
                 String[] logon = scan.nextLine().split(",");
                 System.out.println(logon[0]);
                 put = logon[0];
                 Image img = new Image(new FileInputStream(logon[0]));
                 ImageView photo = new ImageView(img);
-                if (logon[5].equals(Main.user.getId())) {
                     productData.add(new Product(photo, logon[1], logon[2], logon[3], logon[4], Main.user, logon[0], logon[6], logon[7]));
-                }
             }
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -134,7 +132,7 @@ public class MyProductController implements Initializable {
         FileWriter filewriter;
         int coutCell = 0;
         try {
-            filewriter = new FileWriter(new File("ProductDataBase.txt "));
+            filewriter = new FileWriter(new File("soldProduct.txt "));
             for (int i = 0; i < arrayObject.getBody().length; ++i)
                 if (coutCell < 7) {
                     System.out.println(idProductString);
@@ -186,27 +184,6 @@ public class MyProductController implements Initializable {
         arrayObject = new ArrayObject(array);
         for (int i = 0; i < array.length; i++) {
             System.out.println("array[" + i + "] = " + array[i]);
-        }
-    }
-
-    @FXML
-    private void handleEditProduct() {
-        Product selectedProduct = catalogTabel.getSelectionModel().getSelectedItem();
-        if (selectedProduct != null) {
-            boolean okClicked = showProdoctEditDialog(selectedProduct);
-            if (okClicked) {
-                int selectedIndex = catalogTabel.getSelectionModel().getSelectedIndex();
-                productData.set(selectedIndex, selectedProduct);
-            }
-
-        } else {
-//        Ничего не выбрано.
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.initOwner(null);
-            alert.setTitle("Ничего не набрано");
-            alert.setHeaderText("Нет продукта");
-            alert.setContentText("Выберите продукт в таблице");
-            alert.showAndWait();
         }
     }
 

@@ -5,7 +5,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -57,7 +56,7 @@ public class MyProductFavoritesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        try (Scanner scan = new Scanner(new File("C:\\Users\\KP\\IdeaProjects\\Kursovaya2\\src\\sample\\ProductFavoritesDataBase.txt"))) {
+        try (Scanner scan = new Scanner(new File("ProductFavoritesDataBase.txt"))) {
             while (scan.hasNextLine()) {
                 String[] logon = scan.nextLine().split(",");
                 System.out.println(logon[0]);
@@ -82,15 +81,17 @@ public class MyProductFavoritesController implements Initializable {
         catalogTabel.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showProductDetails(newValue));
     }
-    private void showProductDetails( Product product) {
+
+    private void showProductDetails(Product product) {
         if (product != null) {
             idProductString = product.getProductId();
-            System.out.println(idProductString+"showProductDetails");
+            System.out.println(idProductString + "showProductDetails");
         } else {
         }
     }
 
     static Product product;
+
     @FXML
     private void handleDeleteProduc() {
         int selectedIndex = catalogTabel.getSelectionModel().getSelectedIndex();
@@ -111,19 +112,19 @@ public class MyProductFavoritesController implements Initializable {
         FileWriter filewriter;
         int coutCell = 0;
         try {
-            filewriter = new FileWriter(new File("C:\\Users\\KP\\IdeaProjects\\Kursovaya2\\src\\sample\\ProductFavoritesDataBase.txt "));
+            filewriter = new FileWriter(new File("ProductFavoritesDataBase.txt "));
             for (int i = 0; i < arrayObject.getBody().length; ++i)
                 if (coutCell < 7) {
                     System.out.println(idProductString);
                     if (arrayObject.body[i].equals("")) {
-                    }else {
-                        filewriter.write(arrayObject.getBody()[i]+",");
+                    } else {
+                        filewriter.write(arrayObject.getBody()[i] + ",");
                     }
                     coutCell++;
                     System.out.println(coutCell);
                 } else {
                     if (arrayObject.body[i].equals("")) {
-                    }else {
+                    } else {
                         filewriter.write(arrayObject.getBody()[i] + "\n");
                     }
                     coutCell = 0;
@@ -147,7 +148,7 @@ public class MyProductFavoritesController implements Initializable {
 
     static void WriteArrayWithFile() {
         ArrayList<String> list = new ArrayList<>();
-        try (Scanner scan = new Scanner(new File("C:\\Users\\KP\\IdeaProjects\\Kursovaya2\\src\\sample\\ProductFavoritesDataBase.txt"))) {
+        try (Scanner scan = new Scanner(new File("ProductFavoritesDataBase.txt"))) {
             while (scan.hasNextLine()) {
                 String[] logon = scan.nextLine().split(",");
                 for (int i = 0; i < logon.length; i++) {
@@ -182,7 +183,7 @@ public class MyProductFavoritesController implements Initializable {
                 productData.set(selectedIndex, selectedProduct);
             }
 
-        }else{
+        } else {
 //        Ничего не выбрано.
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(null);
@@ -193,7 +194,7 @@ public class MyProductFavoritesController implements Initializable {
         }
     }
 
-    public boolean showProdoctEditDialog(Product product){
+    public boolean showProdoctEditDialog(Product product) {
         try {
 //          Загружаем fxml-файл и создаем новую сцену для
 //          для всплывающего диалогового окна
@@ -203,7 +204,7 @@ public class MyProductFavoritesController implements Initializable {
 
 //    Создаем диалоговое окно Stage
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Edit Product");
+            dialogStage.setTitle("Информация о товаре");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(null);
             Scene scene = new Scene(page);
@@ -215,7 +216,7 @@ public class MyProductFavoritesController implements Initializable {
 // диалоговое окно и ждет, пока пользователь его не закроет
             dialogStage.showAndWait();
             return controller.isOkKlicked();
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             return false;
         }

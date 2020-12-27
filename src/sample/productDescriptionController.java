@@ -1,7 +1,10 @@
 package sample;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -13,7 +16,6 @@ import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Scanner;
-
 
 
 public class productDescriptionController implements Initializable {
@@ -40,6 +42,9 @@ public class productDescriptionController implements Initializable {
     private Label productWidthField;
 
     @FXML
+    private ImageView ImageFonDiscriotion;
+
+    @FXML
     private Button Cancel;
 
     private Stage dialogStage;
@@ -55,15 +60,82 @@ public class productDescriptionController implements Initializable {
         Stage stage1 = (Stage) Cancel.getScene().getWindow();
         stage1.close();
     }
+
     boolean haveProduct;
+
+    @FXML
+    private void BuyProduck() {
+        Stage stage = new Stage();
+        stage.setTitle("Художественный салон");
+        Parent root;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/sample/BuyProduct.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println();
+
+
+//        try (Scanner scan = new Scanner(new File("ProductFavoritesDataBase.txt"))) {
+//            while (scan.hasNextLine()) {
+//                System.out.println("Вывод информации");
+//                String[] logon = scan.nextLine().split(",");
+//                System.out.println(logon[3] + "---" + product.productIdProperty().getValue());
+//                if (logon[3].equals(product.productIdProperty().getValue())) {
+//                    haveProduct = true;
+//                    break;
+//                } else {
+//                    haveProduct = false;
+//                }
+//            }
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        if (haveProduct) {
+//            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//
+//            alert.setTitle("Предупреждение");
+//
+//            alert.setHeaderText("Товар ужe был добавлен");
+//
+//            alert.setContentText("Данный товара уже был добавленн в Избранное!");
+//
+//            alert.showAndWait();
+//        } else {
+//            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//
+//            alert.setTitle("Оповещение");
+//
+//            alert.setHeaderText("Товар добавлен");
+//
+//            alert.setContentText("Данный товара успешно добавленн в Избранное!");
+//
+//            alert.showAndWait();
+//            String data = product.productPutImage().getValue() + "," + product.productAftorProperty().getValue() + "," + product.productSumProperty().getValue() + ","
+//                    + product.productIdProperty().getValue() + "," + product.productNameProperty().getValue() + "," + Main.user.getId() + "," + product.productLengthProperty().getValue()
+//                    + "," + product.productWidthProperty().getValue() + "," + Main.user.getId() + "," + Main.user.getPhon() + "\n";
+//            OutputStream os;
+//            try {
+//                //в конструкторе FileOutputStream используем флаг true, который обозначает обновление содержимого файла
+//                os = new FileOutputStream(new File("ProductFavoritesDataBase.txt"), true);
+//                os.write(data.getBytes("UTF8"), 0, data.getBytes("UTF8").length);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+    }
+
     @FXML
     private void addProduckFavorites() {
 
-        try (Scanner scan = new Scanner(new File("C:\\Users\\KP\\IdeaProjects\\Kursovaya2\\src\\sample\\ProductFavoritesDataBase.txt"))) {
+        try (Scanner scan = new Scanner(new File("ProductFavoritesDataBase.txt"))) {
             while (scan.hasNextLine()) {
                 System.out.println("Вывод информации");
                 String[] logon = scan.nextLine().split(",");
-                System.out.println(logon[3] + "---"+ product.productIdProperty().getValue());
+                System.out.println(logon[3] + "---" + product.productIdProperty().getValue());
                 if (logon[3].equals(product.productIdProperty().getValue())) {
                     haveProduct = true;
                     break;
@@ -74,38 +146,38 @@ public class productDescriptionController implements Initializable {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-                if (haveProduct) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        if (haveProduct) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
-                    alert.setTitle("Предупреждение");
+            alert.setTitle("Предупреждение");
 
-                    alert.setHeaderText("Товар ужe был добавлен");
+            alert.setHeaderText("Товар ужe был добавлен");
 
-                    alert.setContentText("Данный товара уже был добавленн в Избранное!");
+            alert.setContentText("Данный товара уже был добавленн в Избранное!");
 
-                    alert.showAndWait();
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 
-                    alert.setTitle("Оповещение");
+            alert.setTitle("Оповещение");
 
-                    alert.setHeaderText("Товар добавлен");
+            alert.setHeaderText("Товар добавлен");
 
-                    alert.setContentText("Данный товара успешно добавленн в Избранное!");
+            alert.setContentText("Данный товара успешно добавленн в Избранное!");
 
-                    alert.showAndWait();
-                    String data = product.productPutImage().getValue() + "," + product.productAftorProperty().getValue() + "," + product.productSumProperty().getValue() + ","
-                            + product.productIdProperty().getValue() + "," + product.productNameProperty().getValue() + "," + Main.user.getId() + "," + product.productLengthProperty().getValue()
-                            + "," + product.productWidthProperty().getValue() + "," + Main.user.getId()+ "\n";
-                    OutputStream os;
-                    try {
-                        //в конструкторе FileOutputStream используем флаг true, который обозначает обновление содержимого файла
-                        os = new FileOutputStream(new File("C:\\Users\\KP\\IdeaProjects\\Kursovaya2\\src\\sample\\ProductFavoritesDataBase.txt"), true);
-                        os.write(data.getBytes("UTF8"), 0, data.getBytes("UTF8").length);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
+            alert.showAndWait();
+            String data = product.productPutImage().getValue() + "," + product.productAftorProperty().getValue() + "," + product.productSumProperty().getValue() + ","
+                    + product.productIdProperty().getValue() + "," + product.productNameProperty().getValue() + "," + Main.user.getId() + "," + product.productLengthProperty().getValue()
+                    + "," + product.productWidthProperty().getValue() + "," + Main.user.getId() + "," + Main.user.getPhon() + "\n";
+            OutputStream os;
+            try {
+                //в конструкторе FileOutputStream используем флаг true, который обозначает обновление содержимого файла
+                os = new FileOutputStream(new File("ProductFavoritesDataBase.txt"), true);
+                os.write(data.getBytes("UTF8"), 0, data.getBytes("UTF8").length);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 
@@ -118,11 +190,10 @@ public class productDescriptionController implements Initializable {
             product.setProductLength(productLengthField.getText());
             product.setProductWidth(productWidthField.getText());
 
-            Scanner scan = new Scanner(new File("C:\\Users\\KP\\IdeaProjects\\Kursovaya2\\src\\sample\\ProductDataBase.txt"));
+            Scanner scan = new Scanner(new File("ProductDataBase.txt"));
             while (scan.hasNextLine()) {
                 String[] logon = scan.nextLine().split(",");
                 if (logon[3].equals(product.productIdProperty().getValue())) {
-
 
                     logon[1] = productAftorField.getText();
                     logon[2] = productSumField.getText();
@@ -185,12 +256,20 @@ public class productDescriptionController implements Initializable {
             productAftorField.setText(product.productAftorProperty() != null ? product.productAftorProperty().getValue() : "");
             productWidthField.setText(product.productWidthProperty() != null ? product.productWidthProperty().getValue() : "");
             productLengthField.setText(product.productLengthProperty() != null ? product.productLengthProperty().getValue() : "");
-            productAftorPhonField.setText(Main.user.getPhon()!= null ? Main.user.getPhon():"");
+            productAftorPhonField.setText(Main.user.getPhon() != null ? Main.user.getPhon() : "");
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Image img = null;
+        try {
+            img = new Image(new FileInputStream("C:\\Users\\KP\\IdeaProjects\\Kursovaya2\\src\\sample\\DescriptionFon.jpg"));
+            ImageFonDiscriotion.setImage(img);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
 
     }
 }

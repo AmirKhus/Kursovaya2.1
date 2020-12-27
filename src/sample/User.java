@@ -7,6 +7,15 @@ public class User {
     private String password;
     private String id;
     private String phon;
+    private String dostup;
+
+    public String getDostup() {
+        return dostup;
+    }
+
+    public void setDostup(String dostup) {
+        this.dostup = dostup;
+    }
 
     public String getPhon() {
         return phon;
@@ -56,13 +65,14 @@ public class User {
         this.id = id;
     }
 
-    public User(String login, String firstName, String lastName, String password, String id, String phon) {
+    public User(String login, String firstName, String lastName, String password, String id, String phon, String dostup) {
         this.login = login;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.id = id;
         this.phon = phon;
+        this.dostup = dostup;
     }
 
     public User() {

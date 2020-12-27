@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -64,6 +65,18 @@ public class CatalogController extends loginFail implements Initializable {
     @FXML
     private TableColumn<Product, String> NameProduct;
 
+    @FXML
+    private ImageView FonImageLK;
+
+    @FXML
+    private void ShowHelp() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initOwner(null);
+        alert.setTitle("Помощь");
+        alert.setContentText("При возникновении проблем пишите\n на почту amir19040268@gmail.com");
+
+        alert.showAndWait();
+    }
 
     @FXML
     private Menu Товары;
@@ -83,6 +96,30 @@ public class CatalogController extends loginFail implements Initializable {
 
     @FXML
     private Button MyOrders;
+
+    @FXML
+    private void soldProduct() {
+        if (Main.user.getDostup().equals("1")) {
+            Stage stage = new Stage();
+            stage.setTitle("Проданные товары");
+            Parent root = null;
+            try {
+                root = FXMLLoader.load(getClass().getResource("soldProduct.fxml"));
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.initOwner(null);
+            alert.setTitle("Нет доступа");
+            alert.setHeaderText("Кнопак не действительна");
+            alert.setContentText("Это кнопка действительная только для администрации");
+            alert.showAndWait();
+        }
+    }
 
     @FXML
     private void handleShowMyProductFavorites() {
@@ -124,7 +161,7 @@ public class CatalogController extends loginFail implements Initializable {
                 productData.set(selectedIndex, selectedProduct);
             }
 
-        }else{
+        } else {
 //        Ничего не выбрано.
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(null);
@@ -135,7 +172,7 @@ public class CatalogController extends loginFail implements Initializable {
         }
     }
 
-    public boolean showProdoctEditDialog(Product product){
+    public boolean showProdoctEditDialog(Product product) {
         try {
 //          Загружаем fxml-файл и создаем новую сцену для
 //          для всплывающего диалогового окна
@@ -145,7 +182,7 @@ public class CatalogController extends loginFail implements Initializable {
 
 //    Создаем диалоговое окно Stage
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Edit Product");
+            dialogStage.setTitle("Информация о товаре");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(null);
             Scene scene = new Scene(page);
@@ -157,20 +194,20 @@ public class CatalogController extends loginFail implements Initializable {
 // диалоговое окно и ждет, пока пользователь его не закроет
             dialogStage.showAndWait();
             return controller.isOkKlicked();
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
     }
 
     private void ShowProduct() {
-        try (Scanner scan = new Scanner(new File("C:\\Users\\KP\\IdeaProjects\\Kursovaya2\\src\\sample\\ProductDataBase.txt"))) {
-            while(scan.hasNextLine() ) {
+        try (Scanner scan = new Scanner(new File("ProductDataBase.txt"))) {
+            while (scan.hasNextLine()) {
                 String[] logon = scan.nextLine().split(",");
                 System.out.println(logon[0]);
                 Image img = new Image(new FileInputStream(logon[0]));
                 ImageView photo = new ImageView(img);
-                productData.add(new Product(photo, logon[1], logon[2], logon[3], logon[4], Main.user,logon[0],logon[6],logon[7]));
+                productData.add(new Product(photo, logon[1], logon[2], logon[3], logon[4], Main.user, logon[0], logon[6], logon[7]));
             }
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -185,6 +222,14 @@ public class CatalogController extends loginFail implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Image img = null;
+        try {
+            img = new Image(new FileInputStream("C:\\Users\\KP\\Downloads\\9966913_img-0735.jpg"));
+            FonImageLK.setImage(img);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
         Name.setText(Main.user.getFirstName());
         Surname.setText(Main.user.getLastName());
         Phon.setText(Main.user.getPhon());

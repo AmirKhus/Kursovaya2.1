@@ -7,7 +7,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -38,7 +37,7 @@ public class RegisterController implements Initializable {
     private Button RegistorButton;
 
     @FXML
-    private Button Phon;
+    private TextField Phon;
 
     @FXML
     private Button CancelButton;
@@ -124,7 +123,7 @@ public class RegisterController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         RegistorButton.setOnAction(event -> {
             boolean NeZanyat = true;
-            try (Scanner scan = new Scanner(new File("C:\\Users\\KP\\IdeaProjects\\Kursovaya2\\src\\sample\\PersonDataBase.txt"))) {
+            try (Scanner scan = new Scanner(new File("PersonDataBase.txt"))) {
                 while (scan.hasNextLine() && NeZanyat) {
                     String[] logon = scan.nextLine().split(",");
                     System.out.println(Login.getText());
@@ -140,11 +139,11 @@ public class RegisterController implements Initializable {
             if (NeZanyat) {
                 int idPeson = (int) (Math.random() * 999999);
                 System.out.println(idPeson);
-                String data = Login.getText() + "," + Password.getText() + "," + Name.getText() + "," + Surname.getText() + "," + idPeson + "," + Phon.getText()+ "\n";
+                String data = Login.getText() + "," + Password.getText() + "," + Name.getText() + "," + Surname.getText() + "," + idPeson + "," + Phon.getText() + "," + "1" + "\n";
                 OutputStream os = null;
                 try {
                     //в конструкторе FileOutputStream используем флаг true, который обозначает обновление содержимого файла
-                    os = new FileOutputStream(new File("C:\\Users\\KP\\IdeaProjects\\Kursovaya2\\src\\sample\\PersonDataBase.txt"), true);
+                    os = new FileOutputStream(new File("PersonDataBase.txt"), true);
                     os.write(data.getBytes("UTF8"), 0, data.getBytes("UTF8").length);
 
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);

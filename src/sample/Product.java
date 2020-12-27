@@ -29,6 +29,7 @@ public class Product {
     public StringProperty productWidthProperty() {
         return this.productWidth;
     }
+
     //    -------------------------------
     public String getProductLength() {
         return this.productLength.get();
@@ -41,6 +42,7 @@ public class Product {
     public StringProperty productLengthProperty() {
         return this.productLength;
     }
+
     //    -------------------------------
     public String getProductPutImage() {
         return this.productPutImage.get();
@@ -71,7 +73,8 @@ public class Product {
     public ObjectProperty<ImageView> productImageProperty() {
         return this.productImage;
     }
-//-------------------------------------
+
+    //-------------------------------------
     public String getProductName() {
         return this.productName.get();
     }
@@ -83,7 +86,8 @@ public class Product {
     public StringProperty productNameProperty() {
         return this.productName;
     }
-//    -------------------------------
+
+    //    -------------------------------
     public String getProductAftor() {
         return this.productAftor.get();
     }
@@ -95,6 +99,7 @@ public class Product {
     public StringProperty productAftorProperty() {
         return this.productAftor;
     }
+
     //    -------------------------------
     public String getProductId() {
         return this.productId.get();
@@ -107,6 +112,7 @@ public class Product {
     public StringProperty productIdProperty() {
         return this.productId;
     }
+
     //    -------------------------------
     public String getProductSum() {
         return this.productSum.get();
@@ -128,11 +134,11 @@ public class Product {
         this.user = user;
     }
 
-    public Product(ImageView productImage, String ProductAftor, String productSum, String productId, String productName,User user,String productPutImage,String productLength,String productWidth) {
+    public Product(ImageView productImage, String ProductAftor, String productSum, String productId, String productName, User user, String productPutImage, String productLength, String productWidth) {
         this.productName = new SimpleStringProperty(productName);
         this.productSum = new SimpleStringProperty(productSum);
         this.productImage = new SimpleObjectProperty(productImage);
-        this.productAftor = new SimpleStringProperty (ProductAftor);
+        this.productAftor = new SimpleStringProperty(ProductAftor);
         this.productId = new SimpleStringProperty(productId);
         this.productLength = new SimpleStringProperty(productLength);
         this.productWidth = new SimpleStringProperty(productWidth);
@@ -143,6 +149,7 @@ public class Product {
     public static void addProduct(Product product) {
 
     }
+
     public Product() {
 
     }

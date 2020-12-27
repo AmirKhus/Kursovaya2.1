@@ -35,38 +35,15 @@ public class loginFail implements Initializable {
     private Hyperlink RegisterButton;
 
 
-
-//    @FXML
-//    private void ShowRegister() {
-//        try {
-////          Загружаем fxml-файл и создаем новую сцену для
-////          для всплывающего диалогового окна
-//            FXMLLoader loader = new FXMLLoader();
-//            loader.setLocation(RegisterController.class.getResource("Register.fxml"));
-//            AnchorPane page = (AnchorPane) loader.load();
-//
-////    Создаем диалоговое окно Stage
-//            Stage dialogStage = new Stage();
-//            dialogStage.setTitle("Регистрация");
-//            dialogStage.initModality(Modality.WINDOW_MODAL);
-//            dialogStage.initOwner(null);
-//            Scene scene = new Scene(page);
-//            dialogStage.setScene(scene);
-//// диалоговое окно и ждет, пока пользователь его не закроет
-//            dialogStage.showAndWait();
-//        }catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
     public static String NameCase;
     public static String SurnameCase;
-    public  static String idAftor;
+    public static String idAftor;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         RegisterButton.setOnAction(event -> {
             Stage stage = new Stage();
-            stage.setTitle("Register");
+            stage.setTitle("Регистрация");
             Parent root = null;
             try {
                 root = FXMLLoader.load(getClass().getResource("/sample/Registor.fxml"));
@@ -84,17 +61,17 @@ public class loginFail implements Initializable {
         LoginButton.setOnAction(event -> {
             boolean zanyat = true;
             boolean nePravilno = false;
-            try (Scanner scan = new Scanner(new File("C:\\Users\\KP\\IdeaProjects\\Kursovaya2\\src\\sample\\PersonDataBase.txt"))) {
-                while(scan.hasNextLine() && zanyat){
+            try (Scanner scan = new Scanner(new File("PersonDataBase.txt"))) {
+                while (scan.hasNextLine() && zanyat) {
                     String[] logon = scan.nextLine().split(",");
                     if (logon[0].equals(LoginText.getText()) && logon[1].equals(PasswordText.getText())) {
                         zanyat = false;
                         nePravilno = false;
-                        SurnameCase =logon[3];
+                        SurnameCase = logon[3];
                         NameCase = logon[2];
                         idAftor = logon[4];
-                        Main.user = new User(logon[0],logon[2],logon[3],logon[1],logon[4],logon[5]);
-                    }else {
+                        Main.user = new User(logon[0], logon[2], logon[3], logon[1], logon[4], logon[5], logon[6]);
+                    } else {
                         nePravilno = true;
                     }
 
@@ -105,7 +82,7 @@ public class loginFail implements Initializable {
             }
 
 
-            if (nePravilno){
+            if (nePravilno) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 System.out.println("Пароль или логин неверно введены");
 
@@ -116,20 +93,20 @@ public class loginFail implements Initializable {
                 alert.setContentText("Проверьте введенные логин и пароль");
 
                 alert.showAndWait();
-            }else {
+            } else {
                 Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-                System.out.println("Вход в учетную запись прошла успешно !!!Мои поздравления *****");
+                System.out.println("Вход в учетную запись\n прошла успешно !!!Мои поздравления *****");
 
                 alert1.setTitle("Ты супер!");
 
                 alert1.setHeaderText("Сообщение об успехе");
 
-                alert1.setContentText("Вход в учетную запись прошла успешно !!!Мои поздравления *****");
+                alert1.setContentText("Вход в учетную запись прошла\n успешно !!!Мои поздравления *****");
 
                 alert1.showAndWait();
 
                 Stage stage = new Stage();
-                stage.setTitle("LK");
+                stage.setTitle("Художественный салон");
                 Parent root = null;
                 try {
                     root = FXMLLoader.load(getClass().getResource("/sample/Catalog.fxml"));
